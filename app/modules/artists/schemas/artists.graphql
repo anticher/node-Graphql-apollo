@@ -4,6 +4,7 @@ type Artist{
     secondName: String
     middleName: String
     birthPlace: String
+    birthDate: String
     country: String
     bandsIds: [String]
     instruments: [String]
@@ -14,7 +15,8 @@ input AddArtistInput {
     secondName: String!
     middleName: String
     birthPlace: String
-    country: String!
+    birthDate: String
+    country: String
     bandsIds: [String]
     instruments: [String]
 }
@@ -25,6 +27,7 @@ input PutArtistInput {
     secondName: String
     middleName: String
     birthPlace: String
+    birthDate: String
     country: String
     bandsIds: [String]
     instruments: [String]

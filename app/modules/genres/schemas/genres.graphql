@@ -1,0 +1,38 @@
+type Genre{
+    _id: ID!
+    name: String
+    description: String
+    country: String
+    year: Int
+}
+
+input AddGenreInput {
+    name: String!
+    description: String
+    country: String
+    year: Int
+}
+
+input PutGenreInput {
+    _id: ID!
+    name: String
+    description: String
+    country: String
+    year: Int
+}
+
+type Deleted {
+    acknowledged: Boolean
+    deletedCount: Int
+}
+
+type Query {
+    genres(offset: Int, limit: Int): [Genre]
+    genre(id: String): Genre
+}
+
+type Mutation {
+    addGenre(genreInput: AddGenreInput!): Genre!
+    deleteGenre(id: String!): Deleted!
+    updateGenre(genreInput: PutGenreInput!): Genre!
+}

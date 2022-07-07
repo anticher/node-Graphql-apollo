@@ -3,26 +3,33 @@ import { ApolloServer, gql } from 'apollo-server'
 // import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
 // import { loadSchema } from '@graphql-tools/load'
 
+import { mergeTypeDefs } from '@graphql-tools/merge'
+
 import { main as artists } from './modules/artists/main.js'
+
+import { main as bands } from './modules/bands/main.js'
 
 export async function main() {
     const artistsModule = await artists()
-
+    const bandsModule = await bands()
     // const typeDefs = await loadSchema('app/modules/artists/types.graphql', {
     //     loaders: [new GraphQLFileLoader()],
     // })
 
-    const typeDefs = artistsModule.typeDefs
+    const types = [artistsModule.typeDefs, bandsModule.typeDefs]
+
+    const typeDefs = mergeTypeDefs(types)
+
 
     // const resolvers = artists
 
-    const resolvers = artistsModule.resolvers
+    const resolvers = { ...artistsModule.resolvers, ...bandsModule.resolvers }
 
     const server = new ApolloServer({
         typeDefs,
         resolvers,
         csrfPrevention: true,
-        cache: 'bounded',
+        // cache: 'bounded',
         context: ({ req }) => {
             const authToken = req.headers.authorization || ''
             return { authToken }
@@ -35,6 +42,7 @@ export async function main() {
         dataSources: () => {
             return {
                 artistsAPI: artistsModule.artistsAPI,
+                bandsAPI: bandsModule.bandsAPI
             }
         },
     })

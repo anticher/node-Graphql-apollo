@@ -1,0 +1,46 @@
+type Artist{
+    _id: String!
+    firstName: String
+    secondName: String
+    middleName: String
+    birthPlace: String
+    country: String
+    bandsIds: [String]
+    instruments: [String]
+}
+
+input AddArtistInput {
+    firstName: String!
+    secondName: String!
+    middleName: String
+    birthPlace: String
+    country: String!
+    bandsIds: [String]
+    instruments: [String]
+}
+
+input PutArtistInput {
+    _id: ID!
+    firstName: String
+    secondName: String
+    middleName: String
+    birthPlace: String
+    country: String
+    bandsIds: [String]
+    instruments: [String]
+}
+
+type Deleted {
+    acknowledged: Boolean
+    deletedCount: Int
+}
+
+type Query {
+    artists(offset: Int, limit: Int): [Artist]
+    artist(id: String): Artist
+}
+type Mutation {
+    addArtist(artistInput: AddArtistInput!): Artist!
+    deleteArtist(id: String!): Deleted!
+    updateArtist(artistInput: PutArtistInput!): Artist!
+}

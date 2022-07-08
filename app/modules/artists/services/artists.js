@@ -22,6 +22,9 @@ export class ArtistsAPI extends RESTDataSource {
     async addArtist(input, context) {
         const authToken = context.authToken
         const { artistInput } = input
+        if (artistInput.bands.length > 0) {
+            artistInput.bandsIds = await context.dataSources.bandsAPI.addBandsAndGetIds(artistInput, context)
+        }
         return this.post('', JSON.stringify(artistInput), {
             headers: {
                 'Content-Type': 'application/json',
@@ -60,6 +63,9 @@ export class ArtistsAPI extends RESTDataSource {
     async updateArtist(input, context) {
         const authToken = context.authToken
         const { artistInput } = input
+        if (artistInput.bands.length > 0) {
+            artistInput.bandsIds = await context.dataSources.bandsAPI.addBandsAndGetIds(artistInput, context)
+        }
         const { _id, ...rest } = artistInput
         return this.put(`${_id}`, JSON.stringify(rest), {
             headers: {

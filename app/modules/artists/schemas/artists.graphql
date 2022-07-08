@@ -1,7 +1,15 @@
+input BandInput {
+    name: String!
+    origin: String
+    membersId: [String]
+    website: String
+    genresIds: [String]
+}
+
 type Artist{
-    _id: String!
-    firstName: String
-    secondName: String
+    _id: ID!
+    firstName: String!
+    secondName: String!
     middleName: String
     birthPlace: String
     birthDate: String
@@ -17,7 +25,7 @@ input AddArtistInput {
     birthPlace: String
     birthDate: String
     country: String
-    bandsIds: [String]
+    bands: [BandInput]
     instruments: [String]
 }
 
@@ -29,7 +37,7 @@ input PutArtistInput {
     birthPlace: String
     birthDate: String
     country: String
-    bandsIds: [String]
+    bands: [BandInput]
     instruments: [String]
 }
 

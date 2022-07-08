@@ -47,7 +47,7 @@ input AddTrackInput {
 
 input PutTrackInput {
     _id: ID!
-    title: String!
+    title: String
     album: String
     artists: [ArtistInput]
     bands: [BandInput]

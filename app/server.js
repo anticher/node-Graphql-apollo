@@ -5,28 +5,36 @@ import { ApolloServer, gql } from 'apollo-server'
 
 import { mergeTypeDefs } from '@graphql-tools/merge'
 
-import { main as artists } from './modules/artists/main.js'
+import { main as getArtistsModule } from './modules/artists/main.js'
 
-import { main as bands } from './modules/bands/main.js'
+import { main as getBandsModule } from './modules/bands/main.js'
 
-import { main as genres } from './modules/genres/main.js'
+import { main as getGenresModule } from './modules/genres/main.js'
+
+import { main as getTracksModule } from './modules/tracks/main.js'
 
 export async function main() {
-    const artistsModule = await artists()
-    const bandsModule = await bands()
-    const genresModule = await genres()
+    const artistsModule = await getArtistsModule()
+    const bandsModule = await getBandsModule()
+    const genresModule = await getGenresModule()
+    const tracksModule = await getTracksModule()
     // const typeDefs = await loadSchema('app/modules/artists/types.graphql', {
     //     loaders: [new GraphQLFileLoader()],
     // })
 
-    const types = [artistsModule.typeDefs, bandsModule.typeDefs, genresModule.typeDefs]
+    const types = [artistsModule.typeDefs, bandsModule.typeDefs, genresModule.typeDefs, tracksModule.typeDefs]
 
     const typeDefs = mergeTypeDefs(types)
 
 
     // const resolvers = artists
 
-    const resolvers = { ...artistsModule.resolvers, ...bandsModule.resolvers, ...genresModule.resolvers }
+    const resolvers = {
+        ...artistsModule.resolvers,
+        ...bandsModule.resolvers,
+        ...genresModule.resolvers,
+        ...tracksModule.resolvers
+    }
 
     const server = new ApolloServer({
         typeDefs,
@@ -46,7 +54,8 @@ export async function main() {
             return {
                 artistsAPI: artistsModule.artistsAPI,
                 bandsAPI: bandsModule.bandsAPI,
-                genresAPI: genresModule.genresAPI
+                genresAPI: genresModule.genresAPI,
+                tracksAPI: tracksModule.tracksAPI
             }
         },
     })

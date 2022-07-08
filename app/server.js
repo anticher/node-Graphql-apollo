@@ -13,16 +13,25 @@ import { main as getGenresModule } from './modules/genres/main.js'
 
 import { main as getTracksModule } from './modules/tracks/main.js'
 
+import { main as getAlbumsModule } from './modules/albums/main.js'
+
 export async function main() {
     const artistsModule = await getArtistsModule()
     const bandsModule = await getBandsModule()
     const genresModule = await getGenresModule()
     const tracksModule = await getTracksModule()
+    const albumsModule = await getAlbumsModule()
     // const typeDefs = await loadSchema('app/modules/artists/types.graphql', {
     //     loaders: [new GraphQLFileLoader()],
     // })
 
-    const types = [artistsModule.typeDefs, bandsModule.typeDefs, genresModule.typeDefs, tracksModule.typeDefs]
+    const types = [
+        artistsModule.typeDefs,
+        bandsModule.typeDefs,
+        genresModule.typeDefs,
+        tracksModule.typeDefs,
+        albumsModule.typeDefs
+    ]
 
     const typeDefs = mergeTypeDefs(types)
 
@@ -33,7 +42,8 @@ export async function main() {
         ...artistsModule.resolvers,
         ...bandsModule.resolvers,
         ...genresModule.resolvers,
-        ...tracksModule.resolvers
+        ...tracksModule.resolvers,
+        ...albumsModule.resolvers
     }
 
     const server = new ApolloServer({
@@ -55,7 +65,8 @@ export async function main() {
                 artistsAPI: artistsModule.artistsAPI,
                 bandsAPI: bandsModule.bandsAPI,
                 genresAPI: genresModule.genresAPI,
-                tracksAPI: tracksModule.tracksAPI
+                tracksAPI: tracksModule.tracksAPI,
+                albumsAPI: albumsModule.albumsAPI
             }
         },
     })

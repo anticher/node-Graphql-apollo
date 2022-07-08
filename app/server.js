@@ -3,7 +3,7 @@ import { ApolloServer, gql } from 'apollo-server'
 // import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
 // import { loadSchema } from '@graphql-tools/load'
 
-import { mergeTypeDefs } from '@graphql-tools/merge'
+import { mergeTypeDefs, mergeResolvers } from '@graphql-tools/merge'
 
 import { main as getArtistsModule } from './modules/artists/main.js'
 
@@ -33,18 +33,29 @@ export async function main() {
         albumsModule.typeDefs
     ]
 
+
     const typeDefs = mergeTypeDefs(types)
 
 
     // const resolvers = artists
 
-    const resolvers = {
-        ...artistsModule.resolvers,
-        ...bandsModule.resolvers,
-        ...genresModule.resolvers,
-        ...tracksModule.resolvers,
-        ...albumsModule.resolvers
-    }
+    // const resolvers = {
+    //     ...artistsModule.resolvers,
+    //     ...bandsModule.resolvers,
+    //     ...genresModule.resolvers,
+    //     ...tracksModule.resolvers,
+    //     ...albumsModule.resolvers
+    // }
+
+    const resolverObjects = [
+        artistsModule.resolvers,
+        bandsModule.resolvers,
+        genresModule.resolvers,
+        tracksModule.resolvers,
+        albumsModule.resolvers
+    ]
+
+    const resolvers = mergeResolvers(resolverObjects)
 
     const server = new ApolloServer({
         typeDefs,

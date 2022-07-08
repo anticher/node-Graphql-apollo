@@ -30,6 +30,18 @@ export class GenresAPI extends RESTDataSource {
         })
     }
 
+    async addGenresAndGetIds(input, context) {
+        const promises = input.genres.map((genre) => {
+            const object = { genreInput: genre }
+            return context.dataSources.genresAPI.addGenre(object, context)
+        })
+        const ids = []
+        await Promise.all(promises).then((results) => {
+            results.forEach((res) => ids.push(res._id))
+        })
+        return ids
+    }
+
     async deleteGenre(args, context) {
         const authToken = context.authToken
         const { id } = args

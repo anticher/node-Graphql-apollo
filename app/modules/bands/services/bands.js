@@ -6,7 +6,7 @@ export class BandsAPI extends RESTDataSource {
         this.baseURL = 'http://localhost:3003/v1/bands'
     }
 
-    async getBands(limit, offset) {
+    async getBands(limit = '15', offset = '0') {
         const response = await this.get(`?offset=${offset}&limit=${limit}`)
         const resultArr = []
         for (const key in response.items) {
@@ -28,6 +28,18 @@ export class BandsAPI extends RESTDataSource {
                 Authorization: authToken,
             },
         })
+    }
+
+    async addBandsAndGetIds(input, context) {
+        const promises = input.bands.map((band) => {
+            const object = { bandInput: band }
+            return context.dataSources.bandsAPI.addBand(object, context)
+        })
+        const ids = []
+        await Promise.all(promises).then((results) => {
+            results.forEach((res) => ids.push(res._id))
+        })
+        return ids
     }
 
     async deleteBand(args, context) {

@@ -30,6 +30,18 @@ export class ArtistsAPI extends RESTDataSource {
         })
     }
 
+    async addArtistsAndGetIds(input, context) {
+        const promises = input.artists.map((artist) => {
+            const object = { artistInput: artist }
+            return context.dataSources.artistsAPI.addArtist(object, context)
+        })
+        const ids = []
+        await Promise.all(promises).then((results) => {
+            results.forEach((res) => ids.push(res._id))
+        })
+        return ids
+    }
+
     async deleteArtist(args, context) {
         const authToken = context.authToken
         const { id } = args

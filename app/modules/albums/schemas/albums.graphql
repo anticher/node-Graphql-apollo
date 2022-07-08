@@ -1,21 +1,57 @@
+input BandInput {
+    name: String!
+    origin: String
+    membersId: [String]
+    website: String
+    genresIds: [String]
+}
+
+input ArtistInput {
+    firstName: String!
+    secondName: String!
+    middleName: String
+    birthPlace: String
+    birthDate: String
+    country: String
+    bandsIds: [String]
+    instruments: [String]
+}
+
+input GenreInput {
+    name: String!
+    description: String
+    country: String
+    year: Int
+}
+
+input TrackInput {
+    title: String!
+    album: String
+    artistsIds: [String]
+    bandsIds: [String]
+    duration: Int
+    released: Int
+    genresIds: [String]
+}
+
 type Album {
     _id: String!
     name: String!
     released: Int
-    artists: [String]
-    bands: [String]
-    tracks: [String]
-    genres: [String]
+    artistsIds: [String]
+    bandsIds: [String]
+    trackIds: [String]
+    genresIds: [String]
     image: String
 }
 
 input AddAlbumInput {
     name: String!
     released: Int
-    artists: [String]
-    bands: [String]
-    tracks: [String]
-    genres: [String]
+    artists: [ArtistInput]
+    bands: [BandInput]
+    tracks: [TrackInput]
+    genres: [GenreInput]
     image: String
 }
 
@@ -23,10 +59,10 @@ input PutAlbumInput {
     _id: ID!
     name: String
     released: Int
-    artists: [String]
-    bands: [String]
-    tracks: [String]
-    genres: [String]
+    artists: [ArtistInput]
+    bands: [BandInput]
+    tracks: [TrackInput]
+    genres: [GenreInput]
     image: String
 }
 

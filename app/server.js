@@ -15,12 +15,15 @@ import { main as getTracksModule } from './modules/tracks/main.js'
 
 import { main as getAlbumsModule } from './modules/albums/main.js'
 
+import { main as getFavouritesModule } from './modules/favourites/main.js'
+
 export async function main() {
     const artistsModule = await getArtistsModule()
     const bandsModule = await getBandsModule()
     const genresModule = await getGenresModule()
     const tracksModule = await getTracksModule()
     const albumsModule = await getAlbumsModule()
+    const favouritesModule = await getFavouritesModule()
     // const typeDefs = await loadSchema('app/modules/artists/types.graphql', {
     //     loaders: [new GraphQLFileLoader()],
     // })
@@ -30,7 +33,8 @@ export async function main() {
         bandsModule.typeDefs,
         genresModule.typeDefs,
         tracksModule.typeDefs,
-        albumsModule.typeDefs
+        albumsModule.typeDefs,
+        favouritesModule.typeDefs
     ]
 
 
@@ -52,7 +56,8 @@ export async function main() {
         bandsModule.resolvers,
         genresModule.resolvers,
         tracksModule.resolvers,
-        albumsModule.resolvers
+        albumsModule.resolvers,
+        favouritesModule.resolvers
     ]
 
     const resolvers = mergeResolvers(resolverObjects)
@@ -77,7 +82,8 @@ export async function main() {
                 bandsAPI: bandsModule.bandsAPI,
                 genresAPI: genresModule.genresAPI,
                 tracksAPI: tracksModule.tracksAPI,
-                albumsAPI: albumsModule.albumsAPI
+                albumsAPI: albumsModule.albumsAPI,
+                favouritesAPI: favouritesModule.favouritesAPI
             }
         },
     })

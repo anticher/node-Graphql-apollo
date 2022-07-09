@@ -88,6 +88,6 @@ type Query {
 }
 type Mutation {
     addAlbum(albumInput: AddAlbumInput!): AlbumOut!
-    deleteAlbum(id: ID!): Deleted!
+    deleteAlbum(id: String!): Deleted!
     updateAlbum(albumInput: PutAlbumInput!): AlbumOut!
 }

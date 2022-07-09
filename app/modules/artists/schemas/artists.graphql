@@ -1,4 +1,4 @@
-input BandInput {
+type Band {
     name: String!
     origin: String
     membersId: [String]
@@ -7,9 +7,21 @@ input BandInput {
 }
 
 type Artist{
-    _id: ID!
+    id: ID!
     firstName: String!
     secondName: String!
+    middleName: String
+    birthPlace: String
+    birthDate: String
+    country: String
+    bands: [Band]
+    instruments: [String]
+}
+
+type ArtistOut {
+    id: String!
+    firstName: String
+    secondName: String
     middleName: String
     birthPlace: String
     birthDate: String
@@ -25,19 +37,19 @@ input AddArtistInput {
     birthPlace: String
     birthDate: String
     country: String
-    bands: [BandInput]
+    bandsIds: [String]
     instruments: [String]
 }
 
 input PutArtistInput {
-    _id: ID!
+    id: String!
     firstName: String
     secondName: String
     middleName: String
     birthPlace: String
     birthDate: String
     country: String
-    bands: [BandInput]
+    bandsIds: [String]
     instruments: [String]
 }
 
@@ -51,7 +63,7 @@ type Query {
     artist(id: String): Artist
 }
 type Mutation {
-    addArtist(artistInput: AddArtistInput!): Artist!
+    addArtist(artistInput: AddArtistInput!): ArtistOut!
     deleteArtist(id: String!): Deleted!
-    updateArtist(artistInput: PutArtistInput!): Artist!
+    updateArtist(artistInput: PutArtistInput!): ArtistOut!
 }

@@ -1,7 +1,5 @@
 import { AlbumsAPI } from './services/albums.js'
-
 import { resolvers } from './resolvers/albums.js'
-
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
 import { loadSchema } from '@graphql-tools/load'
 

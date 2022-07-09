@@ -5,6 +5,8 @@ import { ApolloServer, gql } from 'apollo-server'
 
 import { mergeTypeDefs, mergeResolvers } from '@graphql-tools/merge'
 
+import { main as getUsersModule } from './modules/users/main.js'
+
 import { main as getArtistsModule } from './modules/artists/main.js'
 
 import { main as getBandsModule } from './modules/bands/main.js'
@@ -24,11 +26,13 @@ export async function main() {
     const tracksModule = await getTracksModule()
     const albumsModule = await getAlbumsModule()
     const favouritesModule = await getFavouritesModule()
+    const usersModule = await getUsersModule()
     // const typeDefs = await loadSchema('app/modules/artists/types.graphql', {
     //     loaders: [new GraphQLFileLoader()],
     // })
 
     const types = [
+        usersModule.typeDefs,
         artistsModule.typeDefs,
         bandsModule.typeDefs,
         genresModule.typeDefs,
@@ -52,6 +56,7 @@ export async function main() {
     // }
 
     const resolverObjects = [
+        usersModule.resolvers,
         artistsModule.resolvers,
         bandsModule.resolvers,
         genresModule.resolvers,
@@ -78,6 +83,7 @@ export async function main() {
         // },
         dataSources: () => {
             return {
+                usersAPI: usersModule.usersAPI,
                 artistsAPI: artistsModule.artistsAPI,
                 bandsAPI: bandsModule.bandsAPI,
                 genresAPI: genresModule.genresAPI,

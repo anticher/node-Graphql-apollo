@@ -30,18 +30,6 @@ export class BandsAPI extends RESTDataSource {
         })
     }
 
-    async addBandsAndGetIds(input, context) {
-        const promises = input.bands.map((band) => {
-            const object = { bandInput: band }
-            return context.dataSources.bandsAPI.addBand(object, context)
-        })
-        const ids = []
-        await Promise.all(promises).then((results) => {
-            results.forEach((res) => ids.push(res._id))
-        })
-        return ids
-    }
-
     async deleteBand(args, context) {
         const authToken = context.authToken
         const { id } = args

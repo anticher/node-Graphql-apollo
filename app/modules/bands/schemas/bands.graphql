@@ -1,8 +1,42 @@
+type Member {
+    id: ID!
+    firstName: String,
+    secondName: String,
+    middleName: String,
+    instrument: String
+    years: [String]
+}
+
+input MemberInput {
+    id: ID!
+    firstName: String,
+    secondName: String,
+    middleName: String,
+    instrument: String
+    years: [String]
+}
+
+type Genre {
+    name: String!
+    description: String
+    country: String
+    year: Int
+}
+
 type Band {
-    _id: String
+    id: ID!
     name: String
     origin: String
-    membersId: [String]
+    members: [Member]
+    website: String
+    genres: [Genre]
+}
+
+type BandOut {
+    id: String!
+    name: String!
+    origin: String
+    members: [Member]
     website: String
     genresIds: [String]
 }
@@ -10,18 +44,18 @@ type Band {
 input AddBandInput {
     name: String!
     origin: String
-    members: [String]
+    members: [MemberInput]
     website: String
-    genres: [String]
+    genresIds: [String]
 }
 
 input PutBandInput {
-    _id: ID!
+    id: String!
     name: String
     origin: String
-    members: [String]
+    members: [MemberInput]
     website: String
-    genres: [String]
+    genresIds: [String]
 }
 
 type Deleted {
@@ -34,7 +68,7 @@ type Query {
     band(id: String): Band
 }
 type Mutation {
-    addBand(bandInput: AddBandInput!): Band!
+    addBand(bandInput: AddBandInput!): BandOut!
     deleteBand(id: String!): Deleted!
-    updateBand(bandInput: PutBandInput!): Band!
+    updateBand(bandInput: PutBandInput!): BandOut!
 }

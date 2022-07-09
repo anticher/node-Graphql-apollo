@@ -1,4 +1,4 @@
-input BandInput {
+type Band {
     name: String!
     origin: String
     membersId: [String]
@@ -6,7 +6,7 @@ input BandInput {
     genresIds: [String]
 }
 
-input ArtistInput {
+type Artist {
     firstName: String!
     secondName: String!
     middleName: String
@@ -17,17 +17,38 @@ input ArtistInput {
     instruments: [String]
 }
 
-input GenreInput {
+type Genre {
     name: String!
     description: String
     country: String
     year: Int
 }
 
+type Album {
+    name: String!
+    released: Int
+    artistsIds: [String]
+    bandsIds: [String]
+    trackIds: [String]
+    genresIds: [String]
+    image: String
+}
+
 type Track {
-    _id: ID!
+    id: ID!
     title: String!
-    album: String
+    album: Album
+    artists: [Artist]
+    bands: [Band]
+    duration: Int
+    released: Int
+    genres: [Genre]
+}
+
+type TrackOut {
+    id: String!
+    title: String!
+    albumId: String
     artistsIds: [String]
     bandsIds: [String]
     duration: Int
@@ -37,23 +58,23 @@ type Track {
 
 input AddTrackInput {
     title: String!
-    album: String
-    artists: [ArtistInput]
-    bands: [BandInput]
+    albumId: String
+    artistsIds: [String]
+    bandsIds: [String]
     duration: Int
     released: Int
-    genres: [GenreInput]
+    genresIds: [String]
 }
 
 input PutTrackInput {
-    _id: ID!
+    id: String!
     title: String
-    album: String
-    artists: [ArtistInput]
-    bands: [BandInput]
+    albumId: String
+    artistsIds: [String]
+    bandsIds: [String]
     duration: Int
     released: Int
-    genres: [GenreInput]
+    genresIds: [String]
 }
 
 type Deleted {
@@ -67,7 +88,7 @@ type Query {
 }
 
 type Mutation {
-    addTrack(trackInput: AddTrackInput!): Track!
+    addTrack(trackInput: AddTrackInput!): TrackOut!
     deleteTrack(id: ID!): Deleted!
-    updateTrack(trackInput: PutTrackInput!): Track!
+    updateTrack(trackInput: PutTrackInput!): TrackOut!
 }

@@ -6,7 +6,7 @@ export class TracksAPI extends RESTDataSource {
         this.baseURL = 'http://localhost:3006/v1/tracks'
     }
 
-    async getTracks(limit, offset) {
+    async getTracks(limit = '15', offset = '0') {
         const response = await this.get(`?offset=${offset}&limit=${limit}`)
         const resultArr = []
         for (const key in response.items) {
@@ -26,15 +26,6 @@ export class TracksAPI extends RESTDataSource {
     async addTrack(input, context) {
         const authToken = context.authToken
         const { trackInput } = input
-        if (trackInput.bands && trackInput.bands.length > 0) {
-            trackInput.bandsIds = await context.dataSources.bandsAPI.addBandsAndGetIds(trackInput, context)
-        }
-        if (trackInput.artists && trackInput.artists.length > 0) {
-            trackInput.artistsIds = await context.dataSources.artistsAPI.addArtistsAndGetIds(trackInput, context)
-        }
-        if (trackInput.genres && trackInput.genres.length > 0) {
-            trackInput.genresIds = await context.dataSources.genresAPI.addGenresAndGetIds(trackInput, context)
-        }
         return this.post('', JSON.stringify(trackInput), {
             headers: {
                 'Content-Type': 'application/json',
@@ -73,16 +64,7 @@ export class TracksAPI extends RESTDataSource {
     async updateTrack(input, context) {
         const authToken = context.authToken
         const { trackInput } = input
-        if (trackInput.bands.length > 0) {
-            trackInput.bandsIds = await context.dataSources.bandsAPI.addBandsAndGetIds(trackInput, context)
-        }
-        if (trackInput.artists.length > 0) {
-            trackInput.artistsIds = await context.dataSources.artistsAPI.addArtistsAndGetIds(trackInput, context)
-        }
-        if (trackInput.genres.length > 0) {
-            trackInput.genresIds = await context.dataSources.genresAPI.addGenresAndGetIds(trackInput, context)
-        }
-        const { _id, ...rest } = trackInput
+        const { id: _id, ...rest } = trackInput
         return this.put(`${_id}`, JSON.stringify(rest), {
             headers: {
                 'Content-Type': 'application/json',

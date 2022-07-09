@@ -15,10 +15,6 @@ export class TracksAPI extends RESTDataSource {
         return resultArr
     }
 
-    async getBands(limit, offset) {
-        return bandsAPI.getBands(limit, offset)
-    }
-
     async getTrack(id) {
         return this.get(`/${id}`)
     }

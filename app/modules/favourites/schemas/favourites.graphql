@@ -1,6 +1,53 @@
+type BandFavourite {
+    name: String
+    origin: String
+    membersId: [String]
+    website: String
+    genresIds: [String]
+}
+
+type Artist {
+    id: ID
+    firstName: String
+    secondName: String
+    middleName: String
+    birthPlace: String
+    birthDate: String
+    country: String
+    bandsIds: [String]
+    instruments: [String]
+}
+
+type GenreFavourite {
+    name: String
+    description: String
+    country: String
+    year: Int
+}
+
+type TrackFavourite {
+    title: String
+    albumId: String
+    artistsIds: [String]
+    bandsIds: [String]
+    duration: Int
+    released: Int
+    genresIds: [String]
+}
+
 type Favourite {
-    _id: ID!
+    id: ID!
     userId: ID!
+    bands: [BandFavourite]
+    genres: [GenreFavourite]
+    artists: [Artist]
+    tracks: [TrackFavourite]
+}
+
+type FavouriteOut{
+    id: String
+    userId: String
+    type: String
     bandsIds: [String]
     genresIds: [String]
     artistsIds: [String]
@@ -9,13 +56,19 @@ type Favourite {
 
 input FavouriteInput {
     id: ID
+    userId: ID
     type: String
+    bandsIds: [String]
+    genresIds: [String]
+    artistsIds: [String]
+    tracksIds: [String]
 }
 
+
 type Query {
-    favourites: [Favourite]
+    favourites: Favourite
 }
 type Mutation {
-    addFavourite(favouriteInput: FavouriteInput!): Favourite!
-    deleteFavourite(favouriteInput: FavouriteInput!): Favourite!
+    addFavourite(favouriteInput: FavouriteInput!): FavouriteOut!
+    deleteFavourite(favouriteInput: FavouriteInput!): FavouriteOut!
 }

@@ -60,7 +60,7 @@ export class GenresAPI extends RESTDataSource {
     async updateGenre(input, context) {
         const authToken = context.authToken
         const { genreInput } = input
-        const { _id, ...rest } = genreInput
+        const { id: _id, ...rest } = genreInput
         return this.put(`${_id}`, JSON.stringify(rest), {
             headers: {
                 'Content-Type': 'application/json',

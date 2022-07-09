@@ -1,6 +1,14 @@
 type Genre{
-    _id: ID!
-    name: String
+    id: ID!
+    name: String!
+    description: String
+    country: String
+    year: Int
+}
+
+type GenreOut{
+    id: String!
+    name: String!
     description: String
     country: String
     year: Int
@@ -14,7 +22,7 @@ input AddGenreInput {
 }
 
 input PutGenreInput {
-    _id: ID!
+    id: String!
     name: String
     description: String
     country: String
@@ -32,7 +40,7 @@ type Query {
 }
 
 type Mutation {
-    addGenre(genreInput: AddGenreInput!): Genre!
+    addGenre(genreInput: AddGenreInput!): GenreOut!
     deleteGenre(id: String!): Deleted!
-    updateGenre(genreInput: PutGenreInput!): Genre!
+    updateGenre(genreInput: PutGenreInput!): GenreOut!
 }

@@ -48,7 +48,7 @@ export class AlbumsAPI extends RESTDataSource {
     async updateAlbum(input, context) {
         const authToken = context.authToken
         const { albumInput } = input
-        const { _id, ...rest } = albumInput
+        const { id: _id, ...rest } = albumInput
         return this.put(`${_id}`, JSON.stringify(rest), {
             headers: {
                 'Content-Type': 'application/json',

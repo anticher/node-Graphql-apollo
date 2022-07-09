@@ -7,6 +7,12 @@ export const resolvers = {
             return dataSources.genresAPI.getGenre(id)
         },
     },
+    Genre: {
+        id: ({ _id }) => _id,
+    },
+    GenreOut: {
+        id: ({ _id }) => _id,
+    },
     Mutation: {
         addGenre: async (root, args, context) => {
             const result = await context.dataSources.genresAPI.addGenre(args, context)

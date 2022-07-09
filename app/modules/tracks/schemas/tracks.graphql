@@ -89,6 +89,6 @@ type Query {
 
 type Mutation {
     addTrack(trackInput: AddTrackInput!): TrackOut!
-    deleteTrack(id: ID!): Deleted!
+    deleteTrack(id: String!): Deleted!
     updateTrack(trackInput: PutTrackInput!): TrackOut!
 }

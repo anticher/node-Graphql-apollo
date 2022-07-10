@@ -11,32 +11,9 @@ export class FavouritesAPI extends RESTDataSource {
 
     async getFavourites(context) {
         const authToken = context.authToken
-        const response = await this.get('', {}, {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: authToken,
-            },
-        })
-        return response
-    }
-
-    async addFavourite(input, context) {
-        const authToken = context.authToken
-        const { favouriteInput } = input
-        return await this.put('/add', JSON.stringify(favouriteInput), {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: authToken,
-            },
-        })
-    }
-
-    async deleteFavourite(input, context) {
-        const authToken = context.authToken
-        const { favouriteInput } = input
-        return await this.put(
-            '/remove',
-            JSON.stringify(favouriteInput),
+        const response = await this.get(
+            '',
+            {},
             {
                 headers: {
                     'Content-Type': 'application/json',
@@ -44,5 +21,16 @@ export class FavouritesAPI extends RESTDataSource {
                 },
             },
         )
+        return response
+    }
+
+    async addToFavourites(type, id, context) {
+        const authToken = context.authToken
+        return await this.put('/add', JSON.stringify({ type, id }), {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: authToken,
+            },
+        })
     }
 }

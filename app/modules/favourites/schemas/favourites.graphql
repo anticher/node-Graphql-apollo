@@ -1,4 +1,4 @@
-type BandFavourite {
+type Band {
     name: String
     origin: String
     membersId: [String]
@@ -18,14 +18,14 @@ type Artist {
     instruments: [String]
 }
 
-type GenreFavourite {
+type Genre {
     name: String
     description: String
     country: String
     year: Int
 }
 
-type TrackFavourite {
+type Track {
     title: String
     albumId: String
     artistsIds: [String]
@@ -38,13 +38,13 @@ type TrackFavourite {
 type Favourite {
     id: ID
     userId: ID
-    bands: [BandFavourite]
-    genres: [GenreFavourite]
+    bands: [Band]
+    genres: [Genre]
     artists: [Artist]
-    tracks: [TrackFavourite]
+    tracks: [Track]
 }
 
-type FavouriteOut{
+type FavouriteOut {
     id: String
     userId: String
     type: String
@@ -54,21 +54,12 @@ type FavouriteOut{
     tracksIds: [String]
 }
 
-input FavouriteInput {
-    id: ID!
-    userId: ID
-    type: String!
-    bandsIds: [String]
-    genresIds: [String]
-    artistsIds: [String]
-    tracksIds: [String]
-}
-
-
 type Query {
     favourites: Favourite
 }
 type Mutation {
-    addFavourite(favouriteInput: FavouriteInput!): FavouriteOut!
-    deleteFavourite(favouriteInput: FavouriteInput!): FavouriteOut!
+    addTrackToFavourites(id: String!): FavouriteOut!
+    addBandToFavourites(id: String!): FavouriteOut!
+    addArtistToFavourites(id: String!): FavouriteOut!
+    addGenreToFavourites(id: String!): FavouriteOut!
 }

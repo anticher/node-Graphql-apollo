@@ -1,9 +1,12 @@
 import { RESTDataSource } from 'apollo-datasource-rest'
+import { config } from 'dotenv'
+
+const url = config().parsed.TRACKS_URL
 
 export class TracksAPI extends RESTDataSource {
     constructor() {
         super()
-        this.baseURL = 'http://localhost:3006/v1/tracks'
+        this.baseURL = url
     }
 
     async getTracks(limit = '15', offset = '0') {

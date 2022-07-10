@@ -1,9 +1,12 @@
 import { RESTDataSource } from 'apollo-datasource-rest'
+import { config } from 'dotenv'
+
+const url = config().parsed.ARTISTS_URL
 
 export class ArtistsAPI extends RESTDataSource {
     constructor() {
         super()
-        this.baseURL = 'http://localhost:3002/v1/artists'
+        this.baseURL = url
     }
 
     async getArtists(limit = '15', offset = '0') {

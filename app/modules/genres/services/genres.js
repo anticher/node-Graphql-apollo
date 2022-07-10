@@ -1,9 +1,12 @@
 import { RESTDataSource } from 'apollo-datasource-rest'
+import { config } from 'dotenv'
+
+const url = config().parsed.GENRES_URL
 
 export class GenresAPI extends RESTDataSource {
     constructor() {
         super()
-        this.baseURL = 'http://localhost:3001/v1/genres'
+        this.baseURL = url
     }
 
     async getGenres(limit, offset) {

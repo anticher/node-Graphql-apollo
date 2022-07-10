@@ -1,9 +1,12 @@
 import { RESTDataSource } from 'apollo-datasource-rest'
+import { config } from 'dotenv'
+
+const url = config().parsed.FAVOURITES_URL
 
 export class FavouritesAPI extends RESTDataSource {
     constructor() {
         super()
-        this.baseURL = 'http://localhost:3007/v1/favourites'
+        this.baseURL = url
     }
 
     async getFavourites(context) {
@@ -14,11 +17,6 @@ export class FavouritesAPI extends RESTDataSource {
                 Authorization: authToken,
             },
         })
-        // const resultArr = []
-        // for (const key in response.items) {
-        //     resultArr.push(response.items[key])
-        // }
-        // console.log(resultArr)
         return response
     }
 

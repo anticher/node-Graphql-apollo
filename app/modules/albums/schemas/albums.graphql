@@ -1,11 +1,27 @@
-type Band {
-    name: String
-    origin: String
-    membersId: [String]
-    website: String
-    genresIds: [String]
+type Member {
+    id: ID
+    firstName: String,
+    secondName: String,
+    middleName: String,
+    instrument: String
+    years: [String]
 }
 
+type Genre {
+    name: String
+    description: String
+    country: String
+    year: Int
+}
+
+type Band {
+    id: ID
+    name: String
+    origin: String
+    members: [Member]
+    website: String
+    genres: [Genre]
+}
 type Artist {
     firstName: String
     secondName: String
@@ -13,7 +29,7 @@ type Artist {
     birthPlace: String
     birthDate: String
     country: String
-    bandsIds: [String]
+    bands: [Band]
     instruments: [String]
 }
 

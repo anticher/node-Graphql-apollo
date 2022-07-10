@@ -1,9 +1,26 @@
+type Member {
+    id: ID
+    firstName: String,
+    secondName: String,
+    middleName: String,
+    instrument: String
+    years: [String]
+}
+
+type Genre {
+    name: String
+    description: String
+    country: String
+    year: Int
+}
+
 type Band {
+    id: ID
     name: String
     origin: String
-    membersId: [String]
+    members: [Member]
     website: String
-    genresIds: [String]
+    genres: [Genre]
 }
 
 type Artist{

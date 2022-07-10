@@ -11,6 +11,9 @@ export const resolvers = {
         id: ({ _id }) => _id,
         bands: async (root, args, { dataSources }) => {
             const { bandsIds } = root
+            if (!bandsIds || bandsIds.length < 1) {
+                return []
+            }
             const promises = bandsIds.map((id) => {
                 return dataSources.bandsAPI.getBand(id)
             })

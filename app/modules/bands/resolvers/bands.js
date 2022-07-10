@@ -11,6 +11,9 @@ export const resolvers = {
         id: ({ _id }) => _id,
         genres: async (root, args, { dataSources }) => {
             const { genresIds } = root
+            if (!genresIds || genresIds.length < 1) {
+                return []
+            }
             const promises = genresIds.map((id) => {
                 return dataSources.genresAPI.getGenre(id)
             })
@@ -20,17 +23,6 @@ export const resolvers = {
             })
             return genres
         },
-        // members: async (root, args, { dataSources }) => {
-        //     const { membersId } = root
-        //     const promises = membersId.map((id) => {
-        //         return dataSources.artistsAPI.getArtist(id)
-        //     })
-        //     const members = []
-        //     await Promise.all(promises).then((results) => {
-        //         results.forEach((res) => members.push(res))
-        //     })
-        //     return members
-        // },
     },
     BandOut: {
         id: ({ _id }) => _id,

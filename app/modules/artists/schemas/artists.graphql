@@ -1,5 +1,5 @@
 type Band {
-    name: String!
+    name: String
     origin: String
     membersId: [String]
     website: String
@@ -7,9 +7,9 @@ type Band {
 }
 
 type Artist{
-    id: ID!
-    firstName: String!
-    secondName: String!
+    id: ID
+    firstName: String
+    secondName: String
     middleName: String
     birthPlace: String
     birthDate: String

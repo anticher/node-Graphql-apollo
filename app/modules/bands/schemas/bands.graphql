@@ -1,5 +1,5 @@
 type Member {
-    id: ID!
+    id: ID
     firstName: String,
     secondName: String,
     middleName: String,
@@ -17,14 +17,14 @@ input MemberInput {
 }
 
 type Genre {
-    name: String!
+    name: String
     description: String
     country: String
     year: Int
 }
 
 type Band {
-    id: ID!
+    id: ID
     name: String
     origin: String
     members: [Member]

@@ -36,8 +36,8 @@ type TrackFavourite {
 }
 
 type Favourite {
-    id: ID!
-    userId: ID!
+    id: ID
+    userId: ID
     bands: [BandFavourite]
     genres: [GenreFavourite]
     artists: [Artist]
@@ -55,9 +55,9 @@ type FavouriteOut{
 }
 
 input FavouriteInput {
-    id: ID
+    id: ID!
     userId: ID
-    type: String
+    type: String!
     bandsIds: [String]
     genresIds: [String]
     artistsIds: [String]

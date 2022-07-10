@@ -1,5 +1,5 @@
 type Band {
-    name: String!
+    name: String
     origin: String
     membersId: [String]
     website: String
@@ -7,7 +7,7 @@ type Band {
 }
 
 type Artist {
-    firstName: String!
+    firstName: String
     secondName: String!
     middleName: String
     birthPlace: String
@@ -18,14 +18,14 @@ type Artist {
 }
 
 type Genre {
-    name: String!
+    name: String
     description: String
     country: String
     year: Int
 }
 
 type Album {
-    name: String!
+    name: String
     released: Int
     artistsIds: [String]
     bandsIds: [String]
@@ -35,8 +35,8 @@ type Album {
 }
 
 type Track {
-    id: ID!
-    title: String!
+    id: ID
+    title: String
     album: Album
     artists: [Artist]
     bands: [Band]

@@ -6,8 +6,14 @@
 
 - rename env.example to .env
 
-- npm run start or npm run start:dev
+- start your dataBase
+
+- start my apollo server (npm run start or npm run start:dev)
 
 - use apollo explorer to check queries and mutations
 
-- thx for check
+- we do not check the quality of the code and error catching in this task =)
+
+- if you have any questions - you can write me in discord @anticher #2619
+
+- thx for check and have a nice day

@@ -12,6 +12,10 @@
 
 - use apollo explorer to check queries and mutations
 
+- to get authorization token - use jwt query
+
+- to set authorization token - use apollo explorer Headers
+
 - we do not check the quality of the code and error catching in this task =)
 
 - if you have any questions - you can write me in discord @anticher #2619

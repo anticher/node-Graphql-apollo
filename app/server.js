@@ -1,7 +1,4 @@
-// import { resolvers as artists } from './modules/artists/resolvers.js'
 import { ApolloServer, gql } from 'apollo-server'
-// import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
-// import { loadSchema } from '@graphql-tools/load'
 
 import { mergeTypeDefs, mergeResolvers } from '@graphql-tools/merge'
 
@@ -27,9 +24,6 @@ export async function main() {
     const albumsModule = await getAlbumsModule()
     const favouritesModule = await getFavouritesModule()
     const usersModule = await getUsersModule()
-    // const typeDefs = await loadSchema('app/modules/artists/types.graphql', {
-    //     loaders: [new GraphQLFileLoader()],
-    // })
 
     const types = [
         usersModule.typeDefs,
@@ -43,17 +37,6 @@ export async function main() {
 
 
     const typeDefs = mergeTypeDefs(types)
-
-
-    // const resolvers = artists
-
-    // const resolvers = {
-    //     ...artistsModule.resolvers,
-    //     ...bandsModule.resolvers,
-    //     ...genresModule.resolvers,
-    //     ...tracksModule.resolvers,
-    //     ...albumsModule.resolvers
-    // }
 
     const resolverObjects = [
         usersModule.resolvers,
@@ -71,16 +54,10 @@ export async function main() {
         typeDefs,
         resolvers,
         csrfPrevention: true,
-        // cache: 'bounded',
         context: ({ req }) => {
             const authToken = req.headers.authorization || ''
             return { authToken }
         },
-        // dataSources: () => {
-        //     return {
-        //         artistsAPI: new ArtistsAPI(),
-        //     }
-        // },
         dataSources: () => {
             return {
                 usersAPI: usersModule.usersAPI,

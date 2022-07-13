@@ -51,7 +51,7 @@ export class BandsAPI extends RESTDataSource {
     async updateBand(input, context) {
         const authToken = context.authToken
         const { bandInput } = input
-        const { _id, ...rest } = bandInput
+        const { id: _id, ...rest } = bandInput
         return this.put(`${_id}`, JSON.stringify(rest), {
             headers: {
                 'Content-Type': 'application/json',

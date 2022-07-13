@@ -13,7 +13,7 @@ input MemberInput {
     secondName: String,
     middleName: String,
     instrument: String
-    years: [String]
+    years: [Int]
 }
 
 type Genre {

@@ -33,18 +33,6 @@ export class ArtistsAPI extends RESTDataSource {
         })
     }
 
-    async addArtistsAndGetIds(input, context) {
-        const promises = input.artists.map((artist) => {
-            const object = { artistInput: artist }
-            return context.dataSources.artistsAPI.addArtist(object, context)
-        })
-        const ids = []
-        await Promise.all(promises).then((results) => {
-            results.forEach((res) => ids.push(res._id))
-        })
-        return ids
-    }
-
     async deleteArtist(args, context) {
         const authToken = context.authToken
         const { id } = args
@@ -63,9 +51,6 @@ export class ArtistsAPI extends RESTDataSource {
     async updateArtist(input, context) {
         const authToken = context.authToken
         const { artistInput } = input
-        if (artistInput.bands.length > 0) {
-            artistInput.bandsIds = await context.dataSources.bandsAPI.addBandsAndGetIds(artistInput, context)
-        }
         const { id: _id, ...rest } = artistInput
         return this.put(`${_id}`, JSON.stringify(rest), {
             headers: {

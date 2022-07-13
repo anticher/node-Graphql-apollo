@@ -1,0 +1,81 @@
+type Member {
+    id: ID
+    firstName: String,
+    secondName: String,
+    middleName: String,
+    instrument: String
+    years: [String]
+}
+
+type Genre {
+    name: String
+    description: String
+    country: String
+    year: Int
+}
+
+type Band {
+    id: ID
+    name: String
+    origin: String
+    members: [Member]
+    website: String
+    genres: [Genre]
+}
+
+type Artist {
+    firstName: String
+    secondName: String
+    middleName: String
+    birthPlace: String
+    birthDate: String
+    country: String
+    bands: [Band]
+    instruments: [String]
+}
+
+type Genre {
+    name: String
+    description: String
+    country: String
+    year: Int
+}
+
+type Track {
+    title: String
+    albumId: String
+    artistsIds: [String]
+    bandsIds: [String]
+    duration: Int
+    released: Int
+    genresIds: [String]
+}
+
+type Favourite {
+    id: ID
+    userId: ID
+    bands: [Band]
+    genres: [Genre]
+    artists: [Artist]
+    tracks: [Track]
+}
+
+type FavouriteOut {
+    id: String
+    userId: String
+    type: String
+    bandsIds: [String]
+    genresIds: [String]
+    artistsIds: [String]
+    tracksIds: [String]
+}
+
+type Query {
+    favourites: Favourite
+}
+type Mutation {
+    addTrackToFavourites(id: String!): FavouriteOut!
+    addBandToFavourites(id: String!): FavouriteOut!
+    addArtistToFavourites(id: String!): FavouriteOut!
+    addGenreToFavourites(id: String!): FavouriteOut!
+}

@@ -1,0 +1,109 @@
+type Member {
+    id: ID
+    firstName: String,
+    secondName: String,
+    middleName: String,
+    instrument: String
+    years: [String]
+}
+
+type Genre {
+    name: String
+    description: String
+    country: String
+    year: Int
+}
+
+type Band {
+    id: ID
+    name: String
+    origin: String
+    members: [Member]
+    website: String
+    genres: [Genre]
+}
+type Artist {
+    firstName: String
+    secondName: String
+    middleName: String
+    birthPlace: String
+    birthDate: String
+    country: String
+    bands: [Band]
+    instruments: [String]
+}
+
+type Genre {
+    name: String
+    description: String
+    country: String
+    year: Int
+}
+
+type Track {
+    title: String
+    albumId: String
+    artistsIds: [String]
+    bandsIds: [String]
+    duration: Int
+    released: Int
+    genresIds: [String]
+}
+
+type Album {
+    id: ID
+    name: String
+    released: Int
+    artists: [Artist]
+    bands: [Band]
+    track: [Track]
+    genres: [Genre]
+    image: String
+}
+
+type AlbumOut {
+    id: String!
+    name: String!
+    released: Int
+    artistsIds: [String]
+    bandsIds: [String]
+    trackIds: [String]
+    genresIds: [String]
+    image: String
+}
+
+input AddAlbumInput {
+    name: String!
+    released: Int
+    artistsIds: [String]
+    bandsIds: [String]
+    trackIds: [String]
+    genresIds: [String]
+    image: String
+}
+
+input PutAlbumInput {
+    id: String!
+    name: String!
+    released: Int
+    artistsIds: [String]
+    bandsIds: [String]
+    trackIds: [String]
+    genresIds: [String]
+    image: String
+}
+
+type Deleted {
+    acknowledged: Boolean
+    deletedCount: Int
+}
+
+type Query {
+    albums(offset: Int, limit: Int): [Album]
+    album(id: String): Album
+}
+type Mutation {
+    addAlbum(albumInput: AddAlbumInput!): AlbumOut!
+    deleteAlbum(id: String!): Deleted!
+    updateAlbum(albumInput: PutAlbumInput!): AlbumOut!
+}
